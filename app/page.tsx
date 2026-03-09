@@ -27,10 +27,9 @@ export default function Home() {
       const data = await res.json();
       
       if (data) {
-        // This magic strips "720p_" to find the true unique Video ID, and removes duplicates!
         const ids = Array.from(new Set(data.map((key: string) => {
-          const fileName = key.replace("processed_videos/", ""); // e.g., "720p_vid-123.mp4"
-          return fileName.substring(fileName.indexOf('_') + 1);  // e.g., "vid-123.mp4"
+          const fileName = key.replace("processed_videos/", ""); 
+          return fileName.substring(fileName.indexOf('_') + 1);  
         })));
         
         setUniqueVideoIds(ids as string[]);
@@ -63,7 +62,6 @@ export default function Home() {
     formData.append("video", file);
 
     try {
-      // ⚠️ DROPLET 1 IP HERE ⚠️
       const response = await fetch("http://152.42.231.235:8080/upload", {
         method: "POST",
         body: formData,
@@ -101,7 +99,7 @@ export default function Home() {
           <div className="bg-black rounded-xl overflow-hidden shadow-2xl border border-neutral-800">
             {currentPlayId ? (
               <video
-                key={currentVideoUrl} // Forces React to reload the video when quality changes
+                key={currentVideoUrl} 
                 controls
                 autoPlay
                 className="w-full aspect-video bg-neutral-900"
